@@ -1,163 +1,116 @@
-# Ecommerce_Sales_Data_2024_2025_PowerBI
-Power BI analysing Ecommerce_Sales_Data_2024_2025 analysis
-# 📊 Ecommerce Sales Data Analysis Dashboard
+## 🧹 Data Pre-processing (Excel)
 
-## 📌 Project Overview
+### Data Cleaning
 
-This project focuses on cleaning, transforming, and analyzing an ecommerce dataset using Excel and visualizing insights using Power BI.
-
-The goal is to identify trends in sales, profit, customer behavior, and regional performance through an interactive dashboard.
-
----
-
-## 🧹 Data Cleaning (Excel)
-
-### 1. Data Cleaning
-
-* No duplicate records were found.
-* Inconsistencies in:
-
-  * Customer Name
-  * Product Name
-  * Sub-Category
-* Fixed using:
+* Verified dataset integrity and confirmed absence of duplicate records.
+* Standardized textual inconsistencies in **Customer Name**, **Product Name**, and **Sub-Category** using:
 
   * Find & Replace
-  * `TRIM()` – removes extra spaces
-  * `PROPER()` – capitalizes first letter of each word
+  * `TRIM()` for whitespace removal
+  * `PROPER()` for consistent capitalization
 
 ---
 
-### 2. Data Imputation
+### Missing Value Treatment
 
-#### Handling Missing Values
+#### Categorical Variables
 
-* **Sub-Category:**
+* Addressed null values in **Sub-Category** and **Payment Mode** using conditional imputation:
 
-  ```excel
-  =IF(ISBLANK(cell),"Unknown",cell)
-  ```
+  * Replaced missing entries with "Unknown" and "Cash" respectively using `IF(ISBLANK())`.
 
-* **Payment Mode:**
-
-  ```excel
-  =IF(ISBLANK(cell),"Cash",cell)
-  ```
-
----
-
-#### Numerical Columns
+#### Numerical Variables
 
 * **Quantity:**
 
-  ```excel
-  =IF(ISBLANK(cell),AVERAGEIF(range,criteria,average_range),cell)
-  ```
-
-  ```excel
-  =ROUND(N,0)
-  ```
+  * Imputed using conditional mean (`AVERAGEIF()`) based on relevant criteria
+  * Standardized values using `ROUND()`
 
 * **Unit Price:**
 
-  ```excel
-  =IF(ISBLANK(Unit_Price), Total_Amount / (Qty*(1-Discount)), Unit_Price)
-  ```
+  * Derived missing values using a business rule:
+
+    ```
+    Unit Price = Total Amount / (Quantity × (1 - Discount))
+    ```
 
 ---
 
-### 3. Feature Engineering
+### Feature Engineering
 
-* Extracted:
-
-  * Order Month
-  * Order Year
-* Done using delimiter-based splitting from Order Date.
+* Extracted **Order Month** and **Order Year** from the Order Date column to enable time-series analysis.
 
 ---
 
-### 4. Data Preparation
+### Data Structuring & Validation
 
-* Sorted Order ID in ascending order
-* Applied filtering for validation
-
----
-
-### 5. Descriptive Statistics
-
-Using Excel Data Analysis ToolPak:
-
-* Sum
-* Average
-* Median
-* Mode
-* Skewness
-
-Applied on:
-
-* Quantity
-* Unit Price
-* Discount
-* Sales
-* Profit
+* Sorted dataset by **Order ID** in ascending order.
+* Applied filtering techniques to validate cleaned data and ensure consistency.
 
 ---
 
-## 📊 Data Visualization (Power BI)
+### Statistical Analysis
 
-An interactive dashboard was created to communicate key business insights.
+* Leveraged Excel’s **Data Analysis ToolPak** to compute:
 
-### 🔢 Key Metrics
+  * Sum, Mean, Median, Mode, Skewness
+* Applied across key variables:
 
-* Total Orders
-* Total Sales
-* Total Profit
-* Total Revenue
-* Total Discount
-* Year-to-Date (YTD)
+  * Quantity, Unit Price, Discount, Sales, Profit
 
 ---
+📌 Project Overview
 
-### 📈 Visualizations Used
+This project focuses on analyzing eCommerce sales data using Power BI to generate meaningful insights through interactive dashboards and visualizations.
 
-* Clustered Bar Chart → Orders by Category & Region
-* Donut Chart → Profit by Category
-* Stacked Area Chart → Sales & Profit by Month
-* Treemap → Sales by City, Region, Quantity
-* Line + Stacked Column Chart → Revenue & Sales Trend
-* Funnel Chart → Discount by Category
+The dashboard provides a comprehensive view of key business metrics such as:
 
----
-
-### 🎛 Features
-
-* Filters and slicers
-* Drill-down functionality (Treemap)
-* Interactive layout
-* Clear titles, labels, and legends
-
----
-
-## 📤 Output
-
-* Final dashboard exported as PDF:
-
-  * `output/ecommerce_dashboard.pdf`
-
----
-
-## 🛠 Tools Used
-
-* Microsoft Excel
-* Power BI
-
----
-
-## 🚀 How to Use
-
-1. Download the dataset from `/data`
-2. Review cleaning steps in `/scripts`
-3. Open `.pbix` file in Power BI
-4. Explore the dashboard or view exported PDF
-
----
+Total Orders
+Total Sales
+Total Profit
+Total Revenue
+Total Discount
+Year-to-Date (YTD) performance
+📊 Dashboard Features
+🔹 Key Visualizations
+Clustered Bar Chart
+→ Total Orders by Category and Region
+Donut Chart
+→ Profit distribution by Category
+Stacked Area Chart
+→ Monthly trend of Total Sales and Profit
+Tree Map
+→ Total Sales by City, Region, and Quantity
+Line & Stacked Column Chart
+→ Revenue and Sales comparison by Month
+Funnel Chart
+→ Total Discount by Category
+🎯 Interactive Capabilities
+Dynamic filters and slicers
+Drill-down functionality in Tree Map
+Clean and user-friendly layout
+Well-defined titles, legends, and labels
+📤 Output
+Final dashboard exported as PDF
+Interactive .pbix file included for customization
+📈 Summary Analysis
+🔍 Key Insights
+Sales & Revenue Trends
+Monthly analysis shows fluctuations with peak sales periods indicating seasonal demand patterns.
+Profitability by Category
+Certain categories contribute significantly more profit, while others show lower margins despite high sales.
+Regional Performance
+Orders and sales vary across regions, highlighting top-performing markets and areas needing improvement.
+Discount Impact
+High discounts in some categories do not always translate into higher profits, indicating potential margin loss.
+City-Level Contribution
+Tree map reveals a few cities dominating total sales, suggesting strong localized demand.
+💡 Business Recommendations
+Focus on high-profit categories for growth
+Optimize discount strategies to protect margins
+Strengthen marketing in underperforming regions
+Leverage seasonal trends for inventory planning
+🚀 How to Use
+Download the .pbix file
+Open in Power BI Desktop
+Explore dashboard using slicers and filters
